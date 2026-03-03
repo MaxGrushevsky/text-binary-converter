@@ -1,0 +1,40 @@
+{
+  "name": "text-to-binary",
+  "version": "1.0.0",
+  "description": "Convert text to binary string and back. Zero dependencies.",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maksimgrushevsky/text-to-binary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maksimgrushevsky/text-to-binary/issues"
+  },
+  "homepage": "https://github.com/maksimgrushevsky/text-to-binary#readme",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": ["binary", "text", "convert", "encode"],
+  "author": "MaxGrushevsky",
+  "license": "MIT",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "npm run build && node --test"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
