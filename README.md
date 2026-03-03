@@ -7,7 +7,7 @@ Small, focused utility for encoding any JavaScript string (including emoji, Cyri
 ## Install
 
 ```bash
-npm install text-to-binary
+npm install text-binary-converter
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install text-to-binary
 ### Basic usage (TypeScript / ESM)
 
 ```ts
-import { textToBinary, binaryToText } from 'text-to-binary'
+import { textToBinary, binaryToText } from 'text-binary-converter'
 
 textToBinary('Hi')           // '01001000 01101001'
 textToBinary('Hi', 'no-spaces')  // '0100100001101001'
@@ -31,7 +31,7 @@ textToBinary('Hi', '8-bit-groups') // '01001000|01101001'
 ### CommonJS (Node.js)
 
 ```js
-const { textToBinary, binaryToText } = require('text-to-binary')
+const { textToBinary, binaryToText } = require('text-binary-converter')
 
 const bin = textToBinary('Hello')
 console.log(bin)                // '01001000 01100101 01101100 01101100 01101111'
@@ -43,7 +43,7 @@ console.log(binaryToText(bin))  // 'Hello'
 Just import it as a normal npm package:
 
 ```ts
-import { textToBinary } from 'text-to-binary'
+import { textToBinary } from 'text-binary-converter'
 
 const bits = textToBinary('Frontend ❤️')
 ```

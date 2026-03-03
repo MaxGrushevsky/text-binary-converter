@@ -1,5 +1,5 @@
 {
-  "name": "text-to-binary",
+  "name": "text-binary-converter",
   "version": "1.0.0",
   "description": "Convert text to binary string and back. Zero dependencies.",
   "type": "commonjs",
@@ -29,6 +29,9 @@
     "LICENSE",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
