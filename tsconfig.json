@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "CommonJS",
-    "declaration": true,
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ESNext"],
+    "rootDir": "src",
     "outDir": "dist",
-    "rootDir": ".",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["index.ts"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts"]
 }
