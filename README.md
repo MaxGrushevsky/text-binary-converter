@@ -4,7 +4,6 @@
 
 [![npm](https://img.shields.io/npm/v/text-binary-converter)](https://www.npmjs.com/package/text-binary-converter)
 [![license](https://img.shields.io/npm/l/text-binary-converter)](./LICENSE)
-[![build](https://img.shields.io/github/actions/workflow/status/maksimgrushevsky/text-binary-converter/ci.yml)](https://github.com/maksimgrushevsky/text-binary-converter/actions)
 
 ## Features
 
