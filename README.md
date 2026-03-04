@@ -4,7 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/text-binary-converter)](https://www.npmjs.com/package/text-binary-converter)
 [![license](https://img.shields.io/npm/l/text-binary-converter)](./LICENSE)
-[![build](https://img.shields.io/github/actions/workflow/status/maksimgrushevsky/text-to-binary/ci.yml)](https://github.com/maksimgrushevsky/text-to-binary/actions)
+[![build](https://img.shields.io/github/actions/workflow/status/maksimgrushevsky/text-binary-converter/ci.yml)](https://github.com/maksimgrushevsky/text-binary-converter/actions)
 
 ## Features
 
@@ -126,8 +126,8 @@ try {
 ## Development
 
 ```bash
-git clone https://github.com/maksimgrushevsky/text-to-binary.git
-cd text-to-binary
+git clone https://github.com/maksimgrushevsky/text-binary-converter.git
+cd text-binary-converter
 npm install
 
 npm run build         # compile to dist/

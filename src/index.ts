@@ -2,12 +2,22 @@
  * Convert between text and binary string representation (UTF-8). Zero dependencies.
  */
 
+// Use native TextEncoder/TextDecoder when available for speed.
+// Accessed via globalThis to avoid depending on DOM lib types.
+const _global = typeof globalThis !== 'undefined' ? (globalThis as any) : undefined
+const textEncoder: any = _global && _global.TextEncoder ? new _global.TextEncoder() : null
+const textDecoder: any = _global && _global.TextDecoder ? new _global.TextDecoder('utf-8') : null
+
 export type BinaryFormat = 'spaced' | 'no-spaces' | '8-bit-groups'
 
 /**
  * Encode a string into UTF-8 bytes.
  */
-function utf8Encode(str: string): number[] {
+function utf8Encode(str: string): Uint8Array {
+  if (textEncoder) {
+    return textEncoder.encode(str)
+  }
+
   const bytes: number[] = []
 
   for (let i = 0; i < str.length; i++) {
@@ -44,13 +54,17 @@ function utf8Encode(str: string): number[] {
     }
   }
 
-  return bytes
+  return Uint8Array.from(bytes)
 }
 
 /**
  * Decode UTF-8 bytes into a string.
  */
-function utf8Decode(bytes: number[]): string {
+function utf8Decode(bytes: ArrayLike<number>): string {
+  if (textDecoder && bytes instanceof Uint8Array) {
+    return textDecoder.decode(bytes)
+  }
+
   const codePoints: number[] = []
 
   for (let i = 0; i < bytes.length; ) {
@@ -120,11 +134,12 @@ export function textToBinary(text: string, format: BinaryFormat = 'spaced'): str
   if (!text || typeof text !== 'string') return ''
 
   const bytes = utf8Encode(text)
-  const binaryArray = bytes.map(byte => {
-    let binaryChar = byte.toString(2)
+  const binaryArray: string[] = []
+  for (let i = 0; i < bytes.length; i++) {
+    let binaryChar = bytes[i].toString(2)
     while (binaryChar.length < 8) binaryChar = '0' + binaryChar
-    return binaryChar
-  })
+    binaryArray.push(binaryChar)
+  }
 
   if (format === 'no-spaces') return binaryArray.join('')
   if (format === '8-bit-groups') return binaryArray.join('|')
@@ -144,13 +159,18 @@ export function binaryToText(binary: string): string {
     throw new Error(`Binary string length (${cleaned.length}) is not a multiple of 8`)
   }
 
-  const bytes: number[] = []
+  const bytes = new Uint8Array(cleaned.length / 8)
+  let byteIndex = 0
   for (let i = 0; i < cleaned.length; i += 8) {
-    const byte = parseInt(cleaned.substring(i, i + 8), 2)
-    if (Number.isNaN(byte) || byte < 0 || byte > 255) {
+    let byte = 0
+    for (let j = 0; j < 8; j++) {
+      // '0' -> 48, '1' -> 49, so charCodeAt(...) - 48 gives 0 or 1
+      byte = (byte << 1) | (cleaned.charCodeAt(i + j) - 48)
+    }
+    if (byte < 0 || byte > 255) {
       throw new Error(`Invalid byte value at position ${i / 8}`)
     }
-    bytes.push(byte)
+    bytes[byteIndex++] = byte
   }
 
   return utf8Decode(bytes)
